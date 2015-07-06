@@ -1,0 +1,30 @@
+{
+    "appKeys": {
+        "IS_SLEEPING": 0,
+        "LAST_BOTTLE": 2,
+        "LAST_DIAPER": 4,
+        "LAST_NURSING": 3,
+        "LAST_PUMPING": 5,
+        "LAST_SLEEPING": 1
+    },
+    "capabilities": [
+        ""
+    ],
+    "companyName": "wwinder.unh@gmail.com",
+    "longName": "Baby Connect Pebble",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "Baby Connect",
+    "targetPlatforms": [
+        "aplite",
+        "basalt"
+    ],
+    "uuid": "35c2cdea-ca91-4e37-8c28-6df9fe41a19f",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
+}
