@@ -8,6 +8,7 @@ use JSON qw(decode_json);
 use Data::Dumper;
 use Net::FTP;
 use Term::ReadKey;
+use Time::Piece;
 
 my $VERBOSE = 1;
 
@@ -42,8 +43,15 @@ sub getAuthCommand {
 
 sub getStatusListCommand {
   my ($c, $t) = (@_);
-  #my $cmd = "curl -b $c -s https://www.baby-connect.com/CmdListW?cmd=StatusList -d 'Kid=0&pdt=150703&fmt=long&_ts_=$t'";
-  my $cmd = "curl -b $c -s https://www.baby-connect.com/CmdListW?cmd=StatusList -d 'Kid=0&_ts_=$t'";
+  my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($t);
+  my $ymd = sprintf("%02d%02d%02d", ($year%100), $mon+1, $mday);
+
+  #print "sec = $sec\nmin = $min\nhour = $hour\nmday = $mday\nmon = $mon\nyear = $year\nwday = $wday\nyday = $yday\nisdst = $isdst\n";
+  #print "YMD = $ymd\n";
+
+  my $bctime = $t * 1000;
+  #my $cmd = "curl -b $c -s https://www.baby-connect.com/CmdListW?cmd=StatusList -d 'Kid=0&pdt=$ymd&fmt=long&_ts_=$t'";
+  my $cmd = "curl -b $c -s https://www.baby-connect.com/CmdListW?cmd=StatusList -d 'Kid=0&pdt=$ymd&fmt=short&_ts_=$bctime'";
   return $cmd;
 }
 
@@ -153,7 +161,7 @@ while (1) {
   }
 
   # Request data, 
-  my $timestamp = time * 1000;
+  my $timestamp = time;
   my $dataResponse = get_data($cookie, $timestamp);
   if (is_error_response($dataResponse) == 1) {
     logDebug("Error data response!\n".$dataResponse);
