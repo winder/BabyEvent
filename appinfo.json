@@ -16,19 +16,14 @@
     "resources": {
         "media": [
             {
-                "file": "images/moonaction.png",
-                "name": "ACTION_MOON",
-                "type": "png"
-            },
-            {
                 "file": "images/diaperaction.png",
                 "name": "ACTION_DIAPER",
                 "type": "png"
             },
             {
-                "file": "images/bottleaction.png",
-                "name": "ACTION_BOTTLE",
-                "type": "png"
+                "file": "images/bottle.png",
+                "name": "IMAGE_BOTTLE",
+                "type": "png-trans"
             },
             {
                 "file": "images/icon.png",
@@ -42,14 +37,19 @@
                 "type": "png-trans"
             },
             {
+                "file": "images/bottleaction.png",
+                "name": "ACTION_BOTTLE",
+                "type": "png"
+            },
+            {
                 "file": "images/diaper.png",
                 "name": "IMAGE_DIAPER",
                 "type": "png-trans"
             },
             {
-                "file": "images/bottle.png",
-                "name": "IMAGE_BOTTLE",
-                "type": "png-trans"
+                "file": "images/moonaction.png",
+                "name": "ACTION_MOON",
+                "type": "png"
             }
         ]
     },

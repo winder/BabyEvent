@@ -1,6 +1,10 @@
 var json_file_url = 'http://willwinder.com/baby';
 
 function stringToTimestamp(datetime) {
+  if (typeof datetime === 'undefined') {
+    return 0;
+  }
+  
   var time=datetime.split(" ");
   var date=time[0];
   time=time[1].split(":");
@@ -9,6 +13,7 @@ function stringToTimestamp(datetime) {
 }
 
 function updateWatch(asleep, lastSleeping, lastBottle, lastNursing, lastDiaper, lastPumping) {
+  console.log("Updating the watch.");
   var sleep = 0;
   if (asleep === 'true') {
     sleep = 1;
@@ -19,9 +24,9 @@ function updateWatch(asleep, lastSleeping, lastBottle, lastNursing, lastDiaper, 
       "IS_SLEEPING":sleep,
       "LAST_SLEEPING":stringToTimestamp(lastSleeping),
       "LAST_BOTTLE":stringToTimestamp(lastBottle),
-      "LAST_NURSING":stringToTimestamp(lastNursing),
       "LAST_DIAPER":stringToTimestamp(lastDiaper),
       "LAST_PUMPING":stringToTimestamp(lastPumping),
+      "LAST_NURSING":stringToTimestamp(lastNursing),
     },  function(e) {
       console.log('Successfully delivered message with transactionId=' + e.data.transactionId);
     }, function(e) {
@@ -35,12 +40,12 @@ function processStatusJson(json) {
   var summary = obj.summaries[0];
   console.log("summary:\n" + JSON.stringify(summary));
 
-  console.log("Is Sleeping: " + summary.isSleeping);
+  console.log("Is Sleeping : " + summary.isSleeping);
   console.log("Last sleep  : " + summary.timeOfLastSleeping);
   console.log("Last bottle : " + summary.timeOfLastBottle);
-  console.log("Last nursing: " + summary.timeOfLastNursing);
   console.log("Last diaper : " + summary.timeOfLastDiaper);
   console.log("Last pumping: " + summary.timeOfLastPumping);
+  console.log("Last nursing: " + summary.timeOfLastNursing);
   
   updateWatch(JSON.stringify(summary.isSleeping),
               summary.timeOfLastSleeping,
@@ -48,22 +53,6 @@ function processStatusJson(json) {
               summary.timeOfLastNursing,
               summary.timeOfLastDiaper,
               summary.timeOfLastPumping);
-  /*
-  Pebble.sendAppMessage({
-    "IS_SLEEPING":"1",
-    "LAST_FEEDING":"2",
-    "LAST_BOTTLE":"3",
-    "LAST_NURSING":"4",
-    "LAST_DIAPER":"5",
-    "LAST_PUMPING":"6",
-  },  function(e) {
-    console.log('Successfully delivered message with transactionId=' + e.data.transactionId);
-  },
-  function(e) {
-    console.log('Unable to deliver message with transactionId='+ e.data.transactionId + ' Error is: ' + e.error.message);
-  }
-  );
-  */
 }
 
 function logWithPrefix(prefix, msg) {

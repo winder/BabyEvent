@@ -1,6 +1,6 @@
 #include <pebble.h>
 #include <inttypes.h>
-
+/*
 #include "connect.h"
 #include "utils.h"
   
@@ -43,7 +43,7 @@ static void sync_tuple_changed_callback(const uint32_t key, const Tuple* new_tup
 
 void connect_init() {
   const int inbound_size = 64;
-  const int outbound_size = 16;
+  const int outbound_size = 64;
   app_message_open(inbound_size, outbound_size);
 
   Tuplet initial_values[] = {
@@ -61,3 +61,4 @@ void connect_init() {
 void connect_deinit() {
     app_sync_deinit(&sync);
 }
+*/

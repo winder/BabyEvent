@@ -1,5 +1,5 @@
 #pragma once
-
+/*
 void connect_init();
 void connect_deinit();
 uint32_t* getData();
@@ -12,3 +12,4 @@ enum Keys {
   LAST_DIAPER = 0x4,
   LAST_PUMPING = 0x5,
 };
+*/

@@ -1,7 +1,7 @@
 #include <pebble.h>
 #include "ui.h"
 #include "connect.h"
-  
+  /*
 static Window *s_main_window;
 //static TextLayer *s_time_layer;
 
@@ -137,3 +137,4 @@ void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
                data[LAST_DIAPER],
                data[LAST_PUMPING]);
 }
+*/
