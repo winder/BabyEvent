@@ -79,13 +79,19 @@ function requestHandler(response, num) {
   }
 }
 
+function updateTimesLoop(e) {
+  var req = new XMLHttpRequest();
+  req.open("GET", json_file_url, true);
+  req.onreadystatechange = function(){ requestHandler(req, 1); };
+  req.send();
+  
+  setTimeout(updateTimesLoop, 60000);
+}
+
 // Listen for when the watchface is opened
-Pebble.addEventListener('ready', 
+Pebble.addEventListener('ready',
   function(e) {
-    var req = new XMLHttpRequest();
-    req.open("GET", json_file_url, true);
-    req.onreadystatechange = function(){ requestHandler(req, 1); };
-    req.send();
+    updateTimesLoop(e);
   }
 );
 
@@ -93,7 +99,7 @@ Pebble.addEventListener('ready',
 Pebble.addEventListener('appmessage',
   function(e) {
     console.log('AppMessage received!');
-  }                     
+  }
 );
 
 /*
