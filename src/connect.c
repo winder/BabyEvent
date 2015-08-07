@@ -1,9 +1,12 @@
 #include <pebble.h>
 #include <inttypes.h>
-/*
+
 #include "connect.h"
 #include "utils.h"
+#include "ui.h"
   
+/*** Connection ***/
+
 static AppSync sync;
 static uint8_t sync_buffer[64];
 static uint32_t data[] = {0,0,0,0,0,0};
@@ -11,8 +14,6 @@ static uint32_t data[] = {0,0,0,0,0,0};
 static void sync_error_callback(DictionaryResult dict_error, AppMessageResult app_message_error, void *context) {
   APP_LOG(APP_LOG_LEVEL_DEBUG, "App Message Sync Error: %s", translate_error(app_message_error));
 }
-
-uint32_t* getData() {return data;}
 
 static void sync_tuple_changed_callback(const uint32_t key, const Tuple* new_tuple, const Tuple* old_tuple, void* context) {
   APP_LOG(APP_LOG_LEVEL_DEBUG, "sync tuple callback....");
@@ -24,15 +25,18 @@ static void sync_tuple_changed_callback(const uint32_t key, const Tuple* new_tup
         APP_LOG(APP_LOG_LEVEL_DEBUG, "Is sleeping: %"PRIu32, new_tuple->value->uint32);
         break;
     case LAST_SLEEPING:
-        APP_LOG(APP_LOG_LEVEL_DEBUG, "Last feeding: %"PRIu32, new_tuple->value->uint32);
+        //set_sleep_time(time_t timestamp, bool asleep);
+        APP_LOG(APP_LOG_LEVEL_DEBUG, "Last sleeping: %"PRIu32, new_tuple->value->uint32);
         break;
     case LAST_BOTTLE:
+        set_bottle_time(new_tuple->value->uint32);
         APP_LOG(APP_LOG_LEVEL_DEBUG, "Last bottle: %"PRIu32, new_tuple->value->uint32);
         break;
     case LAST_NURSING:
         APP_LOG(APP_LOG_LEVEL_DEBUG, "Last nursing: %"PRIu32, new_tuple->value->uint32);
         break;
     case LAST_DIAPER:
+        set_diaper_time(new_tuple->value->uint32);
         APP_LOG(APP_LOG_LEVEL_DEBUG, "Last diaper: %"PRIu32, new_tuple->value->uint32);
         break;
     case LAST_PUMPING:
@@ -41,9 +45,13 @@ static void sync_tuple_changed_callback(const uint32_t key, const Tuple* new_tup
   }
 }
 
+/*** API ***/
+
+uint32_t* getData() {return data;}
+
 void connect_init() {
   const int inbound_size = 64;
-  const int outbound_size = 64;
+  const int outbound_size = 16;
   app_message_open(inbound_size, outbound_size);
 
   Tuplet initial_values[] = {
@@ -61,4 +69,3 @@ void connect_init() {
 void connect_deinit() {
     app_sync_deinit(&sync);
 }
-*/
